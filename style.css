@@ -12,6 +12,12 @@
     --horizontal-margin-spacing:6rem;
     --grey-color-light: rgba(232,230,230,.6);
     --grey-color: rgba(232,230,230,1);
+    --primary-color: #212121;
+    --accent-gold: #d4af37;
+    --accent-rose: #e8b4b8;
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --shadow-dark: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
 /* <===================UNIVERSAL CSS===================> */
@@ -45,7 +51,7 @@ h3{
     position: relative;
     transform: translateY(150px);
     opacity: 0;
-    transition: 1s all ease;
+    transition: 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) all;
   }
   
   .reveal.active{
@@ -56,20 +62,48 @@ h3{
     font-family: 'Quicksand', sans-serif;
     font-size: var(--text-size);
     line-height: 1.3rem;
+    letter-spacing: 0.5px;
+}
+a{
+    text-decoration: none;
+    color: inherit;
 }
 .huge-btn{
     display: block;
     font-size: 1rem;
     background: transparent;
-    border: 1px solid #212121;
+    border: 2px solid #212121;
     padding: 25px 50px;
     border-radius: 50px;
     width: fit-content;
     margin: 30px 0;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+.huge-btn::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #d4af37, #e8b4b8);
+    transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: -1;
+    border-radius: 50px;
 }
 .huge-btn:hover{
-    color: grey;
-    border-color: grey;
+    color: #fff;
+    border-color: #d4af37;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    letter-spacing: 2px;
+}
+.huge-btn:hover::before{
+    left: 0;
 }
 .v-reposition-container{
     position: absolute;
@@ -87,12 +121,22 @@ nav{
     height: 3vh;
     width: 100%;
     margin-bottom: 20vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 label.logo{
     font-size: 35px;
     line-height: 80px;
     padding: 0 0 0 30px;
     font-weight: bold;
+    background: linear-gradient(135deg, #212121, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 nav ul{
     float: right;
@@ -111,10 +155,26 @@ nav ul li a{
     border-radius: 3px;
     text-transform: uppercase;
     text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+nav ul li a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #d4af37, #e8b4b8);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+nav ul li a:hover::after{
+    width: 100%;
 }
 a:hover{
-    color: orange;
-    transition: .5s;
+    color: #d4af37;
+    transition: .3s;
 }
 .checkbtn{
     font-size: 30px;
@@ -137,36 +197,83 @@ a:hover{
     html{
         font-size: 10px;
     }
-}
-@media (max-width:570px){
-    .checkbtn{
-        display: block;
-    }
-    ul{
-        position: fixed;
+    .timeline{
+        background: linear-gradient(135deg, rgba(232,230,230,1), rgba(212,175,55,.1));
+        float: none;
+        position: relative;
+        top: 0;
         width: 100%;
-        height: 100vh;
-        backdrop-filter: blur(5px);
-        top: 80px;
-        font-weight: bold;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
+        backdrop-filter: blur(10px);
+        height: fit-content;
     }
-    nav ul li{
+    .timeline-container{
+        flex-direction: column;
+    }
+    .timeline-img{
+        height: 50vh;
+        width: 100%;
+    }
+    .h-reposition-container{
+        position: relative;
+        top: 0;
+    }
+    #story{
+        flex-direction: column;
+    }
+    #story h3{
+        width: 100%;
+        margin: 5px 0;
+        font-size: var(--h3-size);
+    }
+    #story p{
+        width: 100%;
+        margin: 5px 0;
+        font-size: var(--text-size);
+        line-height: var(--text-size);
+    }
+    .gallery{
+        flex-direction: column;
+        padding: 0;
+    }
+    .gallery-img{
+        width: 100vw;
+        height: 90vw;
+        margin: 2px 0;
+    }
+    .gallery-img:nth-child(2){
+        position: relative;
+        left: -(var(--horizontal-margin-spacing));
+    }
+    .quote h1{
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+    .stay-container{
+        flex-direction: column;
+        margin: 10px 0;
+    }
+    .stay-item{
+        margin: 2vh 0;
+    }
+    #registry{
+        flex-direction: column;
+    }
+    .registry-img{
+        width: 100%;
+        height: 50vh;
+    }
+    .registry-img-sm{
+        margin-top: 10vh;
         display: block;
-        margin: 50px 0;
-        line-height: 30px;
     }
-    nav li ul a{
-        font-size: 20px;
+    .registry-img-lg{
+        display: none;
     }
-    a:hover, a.active{
-        background: none;
-        color: grey;
+    .registry-container{
+        width: 100%;
     }
-    #check:checked ~ ul{
-        left: 0;
+    #registry button{
+        margin-inline: auto;
     }
 }
 
@@ -211,13 +318,22 @@ a:hover{
 
 .timeline{
     display: block;
-    background-color: var(--grey-color-light);
+    background: linear-gradient(135deg, rgba(232,230,230,.6), rgba(212,175,55,.2));
     float: left;
     position: relative;
     top: -30vh;
     width: 100%;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(10px);
     padding: 8vh var(--horizontal-margin-spacing);
+    border-top: 2px solid rgba(212,175,55, 0.3);
+    border-bottom: 2px solid rgba(212,175,55, 0.3);
+    box-shadow: var(--shadow-soft);
+}
+.timeline h2{
+    background: linear-gradient(135deg, #212121, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 .timeline-container{
     display: flex;
@@ -230,12 +346,24 @@ a:hover{
     width: 30vw;
     background-position: center;
     background-size: cover;
+    border-radius: 15px;
+    box-shadow: var(--shadow-dark);
+    transition: transform 0.5s ease;
+}
+.timeline-img:hover{
+    transform: scale(1.02);
 }
 .timings{
     margin: 30px;
 }
+.timeline-container h3{
+    color: #d4af37;
+    position: relative;
+    padding-bottom: 10px;
+}
 .timeline-container .text{
     padding: 1rem 0 1rem 4rem;
+    color: #666;
 }
 @media (max-width:1000px){
     .timeline{
@@ -266,12 +394,24 @@ a:hover{
 }
 #story h3{
     width: 40vw;
+    background: linear-gradient(135deg, #212121, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 #story p{
     width: 40vw;
     text-align: justify;
     font-size: var(--h3-size);
     line-height: var(--h3-size);
+    color: #555;
+    margin-left: 5vw;
+    padding: 20px;
+    border-left: 3px solid #d4af37;
+    transition: transform 0.3s ease;
+}
+#story p:hover{
+    transform: translateX(10px);
 }
 @media (max-width:1000px){
     .h-reposition-container{
@@ -308,6 +448,29 @@ a:hover{
     margin: 10px;
     background-size: cover;
     background-position: center;
+    border-radius: 15px;
+    box-shadow: var(--shadow-medium);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+.gallery-img::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(212, 175, 55, 0.3);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.gallery-img:hover{
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: var(--shadow-dark);
+}
+.gallery-img:hover::after{
+    opacity: 1;
 }
 .gallery-img:nth-child(1){
     background-image: url(https://firebasestorage.googleapis.com/v0/b/chuck-842bb.appspot.com/o/GurAmanWed%2Fpic3.jpg?alt=media&token=32a76585-cbeb-41f5-8921-6ad1ff60aa79);
@@ -345,10 +508,18 @@ a:hover{
     font-size: 4rem;
     text-align: center;
     margin: auto;
+    background: linear-gradient(135deg, #d4af37, #212121);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 .author{
     text-align: center;
     margin: 20px 0 10vh 0;
+    color: #d4af37;
+    font-weight: 600;
 }
 @media (max-width:1570px){
     .quote h1{
@@ -371,9 +542,16 @@ a:hover{
 
     /* <===================STAY===================> */
     #stay{
-        background-color: var(--grey-color);
+        background: linear-gradient(135deg, rgba(232,230,230,1), rgba(232,230,230,0.8));
         padding: 10vh var(--horizontal-margin-spacing);
         width: 100%;
+        box-shadow: var(--shadow-soft);
+}
+#stay h2{
+    background: linear-gradient(135deg, #212121, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 .stay-container{
     display: flex;
@@ -381,12 +559,38 @@ a:hover{
     justify-content: space-around;
     margin: 20vh 0;
 }
+.stay-item{
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    flex: 1;
+    margin: 0 15px;
+}
+.stay-item:hover{
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-dark);
+    background: rgba(255, 255, 255, 0.95);
+}
+.stay-item h3{
+    color: #d4af37;
+    margin-bottom: 15px;
+}
 .stay-item .text{
     margin: 20px 0;
+    color: #666;
 }
 .links{
     cursor: pointer;
     text-decoration: underline;
+    color: #d4af37;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.links:hover{
+    color: #212121;
 }
 @media (max-width:1000px){
     .stay-container{
@@ -410,9 +614,22 @@ a:hover{
     display: block;
     width: 30vw;
 }
+.registry-container h3{
+    background: linear-gradient(135deg, #212121, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.5rem;
+}
 .registry-container .text{
     text-align: justify;
     margin: 20px 0;
+    color: #666;
+    line-height: 1.8;
+    padding: 20px;
+    background: rgba(212,175,55, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #d4af37;
 }
 .registry-img{
     display: block;
@@ -422,7 +639,12 @@ a:hover{
     background-size: cover;
     background-position-y: top;
     background-repeat: no-repeat;
-    /* background-attachment: fixed; */
+    border-radius: 15px;
+    box-shadow: var(--shadow-dark);
+    transition: transform 0.5s ease;
+}
+.registry-img:hover{
+    transform: scale(1.02);
 }
 .registry-img-sm{
     display: none;
@@ -458,6 +680,11 @@ a:hover{
 .parting-message h1{
     margin-top: 10vh;
     text-align: center;
+    background: linear-gradient(135deg, #d4af37, #212121);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 3rem;
 }
 .parting-message button{
     margin:  10vh auto;
@@ -469,10 +696,56 @@ footer{
     margin-top: 20vh;
     height: fit-content;
     width: 100%;
-    background-color: var(--grey-color);
+    background: linear-gradient(135deg, #212121, #2a2a2a);
     padding: 10vh 30px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
 }
 footer h2{
-    font-size: 2Srem;
+    font-size: 1.3rem;
     font-weight: normal;
+    color: #d4af37;
+    margin: 10px 0;
+    letter-spacing: 1px;
+}
+footer .text{
+    color: rgba(212, 175, 55, 0.7);
+    margin-top: 20px;
+}
+
+@media (max-width:570px){
+    .checkbtn{
+        display: block;
+        color: #d4af37;
+        transition: all 0.3s ease;
+    }
+    .checkbtn:hover{
+        color: #212121;
+    }
+    ul{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        backdrop-filter: blur(10px);
+        top: 80px;
+        font-weight: bold;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+        background: rgba(255,255,255,0.98);
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a{
+        font-size: 20px;
+    }
+    a:hover, a.active{
+        background: none;
+        color: #d4af37;
+    }
+    #check:checked ~ ul{
+        left: 0;
+    }
 }
